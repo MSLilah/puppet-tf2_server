@@ -2,6 +2,7 @@ class tf2_server::steamcmd {
   user { "steam":
     ensure     => "present",
     managehome => true,
+    uid        => '5239'
   }
   file { '/home/steam/hlds':
     ensure => 'directory',
