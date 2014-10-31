@@ -1,5 +1,8 @@
 class tf2_server::install inherits tf2_server {
   require tf2_server::steamcmd
+  package { 'screen':
+    ensure => present,
+  }
   file { "$server_install_dir/steamcmd.sh":
     ensure => file,
     owner  => "steam",
@@ -26,12 +29,20 @@ class tf2_server::install inherits tf2_server {
     provider => "shell",
     timeout => 0,
     logoutput => true,
+    unless => "cat /etc/init.d/tf2-server",
     require => [File["$server_install_dir/steamcmd.sh"], File["$server_install_dir/linux32/steamcmd"],
                 File["$server_install_dir/tf2_ds.txt"], File["$server_install_dir/update.sh"]],
-    before => [File["$server_install_dir/tf2/steam_appid.txt"]],
+    before => [File["$server_install_dir/tf2/steam_appid.txt"], File["/etc/init.d/tf2-server"]],
   }
   file { "$server_install_dir/tf2/steam_appid.txt":
     ensure => file,
     content => "440",
+  }
+  file { "/etc/init.d/tf2-server":
+    ensure => file,
+    content => template("tf2_server/init_script.erb"),
+    mode => "764",
+    owner => "root",
+    require => [Exec['install_server']],
   }
 }

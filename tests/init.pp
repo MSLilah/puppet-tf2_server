@@ -7,4 +7,7 @@ class { 'tf2_server':
   sv_contact => "fake@fake.com",
   map_timelimit => 15,
   motd => "Welcome to the tf2_server puppet module test server!",
+  service_ensure => running,
+  service_enable => true,
+  service_manage => true,
 }
