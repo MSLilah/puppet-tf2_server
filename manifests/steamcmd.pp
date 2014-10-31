@@ -1,19 +1,18 @@
-class tf2_server::steamcmd {
-  user { "steam":
+class tf2_server::steamcmd inherits tf2_server{
+  user { "$server_install_owner":
     ensure     => "present",
     managehome => true,
-    uid        => '5239'
   }
-  file { '/home/steam/hlds':
+  file { "$server_install_dir":
     ensure => 'directory',
   }
   class { 'staging':
-    path  => '/home/steam',
-    owner => 'steam',
-    group => 'steam',
+    path  => "$staging_dir",
+    owner => "$server_install_owner",
+    group => "$server_install_owner",
   }
   staging::deploy { 'steamcmd_linux.tar.gz':
     source => 'http://media.steampowered.com/installer/steamcmd_linux.tar.gz',
-    target => '/home/steam/hlds',
+    target => "$server_install_dir",
   }
 }

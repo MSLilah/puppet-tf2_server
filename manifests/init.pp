@@ -1,4 +1,7 @@
 class tf2_server (
+  $server_install_dir,
+  $server_install_owner,
+  $staging_dir,
   $hostname,
   $rcon_password,
   $sv_contact,
