@@ -5,12 +5,12 @@ class tf2_server::install inherits tf2_server {
   }
   file { "$server_install_dir/steamcmd.sh":
     ensure => file,
-    owner  => "steam",
+    owner  => "$server_owner",
     mode   => "764",
   }
   file { "$server_install_dir/linux32/steamcmd":
     ensure => file,
-    owner => "steam",
+    owner => "$server_owner",
     mode  => "764",
   }
   file { "$server_install_dir/tf2_ds.txt":
@@ -20,7 +20,7 @@ class tf2_server::install inherits tf2_server {
   file { "$server_install_dir/update.sh":
     ensure  => file,
     content => "#!/bin/sh\n/home/steam/hlds/steamcmd.sh +runscript tf2_ds.txt",
-    owner   => "steam",
+    owner   => "$server_owner",
     mode    => "764",
   }
   exec { 'install_server':
