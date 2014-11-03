@@ -29,7 +29,7 @@ class tf2_server::install inherits tf2_server {
     provider => "shell",
     timeout => 0,
     logoutput => true,
-    unless => "cat /etc/init.d/tf2-server",
+    unless => "cat $server_install_dir/tf2/tf/cfg/server.cfg",
     require => [File["$server_install_dir/steamcmd.sh"], File["$server_install_dir/linux32/steamcmd"],
                 File["$server_install_dir/tf2_ds.txt"], File["$server_install_dir/update.sh"]],
     before => [File["$server_install_dir/tf2/steam_appid.txt"], File["/etc/init.d/tf2-server"]],
