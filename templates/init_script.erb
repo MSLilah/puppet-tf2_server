@@ -1,0 +1,86 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          tf2-server
+# Required-Start:    $remote_fs
+# Required-Stop:     $remote-fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Team Fortress 2 server
+# Description:       Starts a Team Fortress 2 server
+### END INIT INFO
+
+NAME="<%= @hostname %>"
+USER="<%= @server_owner %>"
+SCREENREF="tf2"
+BINARYPATH="<%= @server_install_dir %>/tf2"
+BINARYNAME="srcds_run"
+PIDFILE="tf2server.pid"
+
+OPTS="-game tf +sv_pure 1 +maxplayers 32 +ip 0.0.0.0 +map <%= @start_map %> -autoupdate -steam_dir <%= @server_install_dir %>/ -steamcmd_script <%= @server_install_dir %>/tf2_ds.txt +sv_shutdown_timeout_minutes 5"
+
+cd "$BINARYPATH"
+
+running() {
+  if [ -n "`pgrep -f $BINARYNAME`" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+start() {
+  if ! running; then
+    echo -n "Starting the $NAME server... "
+    start-stop-daemon --start --chuid $USER --user $USER --chdir $BINARYPATH --exec "/usr/bin/screen" -- -dmS $SCREENREF $BINARYPATH/$BINARYNAME $OPTS
+    pgrep -f $BINARYNAME > $PIDFILE
+    if [ -s $PIDFILE ]; then
+      echo "Done"
+    else
+      echo "Failed"
+      rm $PIDFILE
+    fi
+  else
+    echo "The $NAME server is already started."
+  fi
+}
+
+stop() {
+  if running; then
+    echo -n "Stopping the $NAME server... "
+    kill `cat $PIDFILE`
+    while running; do
+      sleep 1
+    done
+    rm $PIDFILE
+    echo "Done"
+  else
+    echo "The $NAME server is already stopped."
+  fi
+}
+
+case "$1" in
+  start)
+    start
+  ;;
+  stop)
+    stop
+  ;;
+  restart)
+    stop
+    start
+  ;;
+  status)
+    if running; then
+      echo "The $NAME server is started."
+      exit 0
+    else
+      echo "The $NAME server is stopped."
+      exit 1
+    fi
+  ;;
+  *)
+    echo "Usage: $0 (start|stop|restart|status)"
+    exit 1
+esac
+exit 0
