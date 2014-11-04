@@ -21,7 +21,8 @@ class tf2_server::config inherits tf2_server {
 
   # ensure .cfg files exist for every map contained in the maplist so that
   # they can all be loaded by the server
-  file { prefix_and_suffix($maplist,"$server_install_dir/tf2/tf/cfg/",".cfg"):
+  $full_path_array = prefix_and_suffix($maplist,"$server_install_dir/tf2/tf/cfg/",".cfg")
+  file { $full_path_array:
     ensure => file,
   }
 
