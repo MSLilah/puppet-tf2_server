@@ -5,7 +5,7 @@ This function applies a prefix and a suffix to all elements in an array.
   ) do |args|
 
     raise(Puppet::ParseError, 
-          "prefix_and_suffix(): Wrong number or arguments, requires 3") if arguments.size != 3
+          "prefix_and_suffix(): Wrong number or arguments, requires 3") if args.size != 3
     arr = args[0]
     
     unless arr.is_a?(Array)
