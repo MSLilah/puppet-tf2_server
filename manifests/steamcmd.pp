@@ -10,5 +10,6 @@ class tf2_server::steamcmd inherits tf2_server{
   staging::deploy { 'steamcmd_linux.tar.gz':
     source => 'http://media.steampowered.com/installer/steamcmd_linux.tar.gz',
     target => "$server_install_dir",
+    creates => "$server_install_dir/steamcmd.sh"
   }
 }
