@@ -17,7 +17,7 @@ BINARYPATH="<%= @server_install_dir %>/tf2"
 BINARYNAME="srcds_run"
 PIDFILE="tf2server.pid"
 
-OPTS="-game tf +sv_pure 1 +maxplayers 32 +ip 0.0.0.0 +map ctf_2fort -autoupdate -steam_dir <%= @server_install_dir %>/ -steamcmd_script <%= @server_install_dir %>/tf2_ds.txt +sv_shutdown_timeout_minutes 5"
+OPTS="-game tf +sv_pure 1 +maxplayers 32 +ip 0.0.0.0 +map <%= @start_map %> -autoupdate -steam_dir <%= @server_install_dir %>/ -steamcmd_script <%= @server_install_dir %>/tf2_ds.txt +sv_shutdown_timeout_minutes 5"
 
 cd "$BINARYPATH"
 
