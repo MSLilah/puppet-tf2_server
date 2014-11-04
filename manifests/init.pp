@@ -10,6 +10,9 @@ class tf2_server (
   $service_ensure = $tf2_server::params::service_ensure,
   $service_manage = $tf2_server::params::service_manage,
   $service_enable = $tf2_server::params::service_enable,
+  $start_map = $tf2_server::params::start_map,
+  $maplist = $tf2_server::params::maplist,
+  $mapcycle = $tf2_server::params::mapcycle,
 ) inherits tf2_server::params {
   include tf2_server::install
   include tf2_server::config

@@ -12,20 +12,23 @@ class tf2_server::config inherits tf2_server {
   }
   file { "$server_install_dir/tf2/tf/cfg/maplist.txt":
     ensure => file,
-    content => "ctf_2fort",
+    content => join($maplist, "\n"),
   }
   file { "$server_install_dir/tf2/tf/cfg/mapcycle.txt":
     ensure => file,
-    content => "ctf_2fort",
+    content => join($mapcycle, "\n"),
   }
-  file { "$server_install_dir/tf2/tf/cfg/ctf_2fort.cfg":
+
+  # ensure .cfg files exist for every map contained in the maplist so that
+  # they can all be loaded by the server
+  file { prefix_and_suffix($maplist,"$server_install_dir/tf2/tf/cfg/",".cfg"):
     ensure => file,
-    content => "mp_timelimit 5"
   }
+
   file { "$server_install_dir/tf.sh":
     ensure => file,
     mode => 764,
     owner => "steam",
-    content => "#!/bin/sh\ntf2/srcds_run -game tf +sv_pure 1 +map ctf_2fort.bsp +maxplayers 24",
+    content => "#!/bin/sh\ntf2/srcds_run -game tf +sv_pure 1 +map $start_map.bsp +maxplayers 24",
   }
 }
