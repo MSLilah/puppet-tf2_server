@@ -1,61 +1,106 @@
-# tf2_server #
+#tf2_server
 
-This module allows you to install, configure, and manage a TF2 server using puppet.
-It will install steamcmd, use it to download and install a TF2 dedicated server,
-then set up configuration files and an init script so the server can be
-managed as a service.
+####Table of Contents
 
-This module requires nanliu's staging module.
+1. [Overview](#overview)
+2. [Module Description - What the module does and why it is useful](#module-description)
+3. [Setup - The basics of getting started with tf2_server](#setup)
+    * [What tf2_server affects](#what-tf2_server-affects)
+    * [Beginning with concat](#beginning-with-tf2_server)
+4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+5. [Limitations - OS compatibility, etc.](#limitations)
+6. [Known issues](#known-issues)
+7. [TODO and Hopes for the Future](#todo-and-hopes-for-the-future)
 
-## Usage
+##Overview
 
-To use this module, declare the `tf2_server` class. This class has
-the following parameters:
+This module allows you to install, configure, and manage a dedicated server
+for Team Fortress 2.
 
-### `server_install_dir`
+##Module Description
 
-This is the location into which the server will be installed. Defaults to
-`/home/steam/hlds/`.
+This module lets you use the `tf2_server` class, which will automatically install
+and manage a TF2 Dedicated Server with its necessary configuration files and allow
+it to be managed as a service.
 
-### `server_owner`
+##Setup
 
-This is the user under whom the server install command the server itself
-will be run. Defaults to `steam`. Note that this module will NOT create
-this user for you if it doesn't exist.
+###What `tf2_server` affects
 
-### `staging_dir`
+* Installs a TF2 Dedicated Server into
+  a directory you specify. Note that this
+  is a large install/download.
 
-This is the staging directory for the steamcmd tar file. Defaults to `/home/steam`.
+###Beginning with `tf2_server`
 
-### `service_ensure`
+To start using `tf2_server`, simply include the
+`tf2_server` class in your manifest, and the module
+will do the rest.
 
-Indicates whether or not the `tf2-server` service is running. Valid values are 
-`running` and `stopped`. Defaults to `running`.
+##Reference
 
-### `service_manage`
+###Classes
 
-Indicates whether or not puppet will manage the `tf2-server` service. Defaults to
-`true`.
+* `tf2_server`: This class installs, configures, and manages the `tf2_server`
+  as a service.
 
-### `service_enable`
+###Parameters
 
-Indicates whether or not the `tf2-server` service will be run on startup. Defaults
-to `true`.
+The `tf2_server` class contains a number of parameters. These include:
 
-### Additional Parameters
+* `server_install_dir`: The directory in which the server should be installed.
+  Defaults to `/home/steam/hlds/`.
+* `server_owner`: The user under whom the server should be run. Defaults to
+  `steam`. Running the server as root is not recommended.
+* `staging_dir`: The staging directory used to download steamcmd, which is used to install
+  the TF2 Server. Defaults to `/home/steam/`.
+* `service_ensure`: Whether or not the TF2 server service should be running. Valid values are
+  `'running'` and `'stopped'`. Defaults to `'running'`.
+* `service_manage`: Whether or not the TF2 server service should be managed by puppet. Defaults to
+  `true`.
+* `service_enable`: Whether or not the TF2 server service should be started on boot. Defaults to
+  `true`.
+* `start_map`: The name of the map that should run initially when the server is started. Defaults to
+  `'ctf_2fort'`. The file extension of the map file should NOT be included.
+* `maplist`: An array containing all the maps that should be available for use by your server. Defaults
+  to `['ctf_2fort']`.
+* `mapcycle`: An array containing the maps in your mapcycle in the order they appear in the mapcycle.
+  Defaults to `['ctf_2fort']`.
+* `motd`: Your server's message of the day.
 
-There are a few additional parameters as well. `hostname`, `rcon_password`, `sv_contact`
-and `map_timelimit` all correspond to settings in your server's `server.cfg` file. `motd`
-is your server's message of the day.
+This class also has the `hostname`, `rcon_password`, `sv_contact`, and `map_timelimit`
+parameters. These correspond to values set in your `server.cfg` file.
 
-## Known Issues
+##Limitations
 
-* When install things with `steamcmd`, the installation will sometimes fail and be in a state
-  where the installation is only partially complete. In this case most of the post-install tasks
-  will fail. Installation should continue the next time the manifest is applied, and once it is
-  complete the agent run will be successful. You may need to apply your manifest multiple times.
+This module has been tested and verified on:
 
-## TODO
+* Debian 7
 
-* Support for CentOS 7
+The module may work on other platforms, but functionality cannot be guaranteed.
+As it stands currently, this module will NOT work on CentOS 6 (due to an
+iptables quirk) or on CentOS 7 (due to its use of systemd).
 
+Furthermore, `steamcmd` is a 32-bit program and uses 32-bit libraries, so, as of now,
+this module will only run on 32-bit architectures. 
+
+##Known Issues
+
+* Occasionally, the `steamcmd` tool may be interrupted while installing the TF2 server.
+  In this case, the puppet run will fail, as certain necessary directories will not have
+  been created. If this happens, simply apply your manifest again, and installation should
+  continue from where it left off. You may need to apply your manifest multiple times to
+  fully install the server. 
+
+##TODO and Hopes for the future
+
+These are features I hope to implement sometime in the future.
+
+* Add support for CentOS 7
+* Currently this module only supports four options for your `server.cfg` file. However, this
+  file supports a large number of additional options, so the current implementation is fairly
+  restrictive. Hopefully, support for additional options will be added in the near future.
+* Add support for 64-bit architectures.
+* Add a custom `map` type. This type will allow you to ensure a map is present in your map-list,
+  and will also allow you to manage the contents of the configuration files for particular maps
+  with puppet.
