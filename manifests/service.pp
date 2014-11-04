@@ -8,6 +8,7 @@ class tf2_server::service inherits tf2_server {
       enable     => $service_enable,
       hasstatus  => true,
       hasrestart => true,
+      subscribe  => Class['tf2_server::config'],
     }
   }
 }
