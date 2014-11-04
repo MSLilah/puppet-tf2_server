@@ -25,13 +25,13 @@ it to be managed as a service.
 
 ##Setup
 
-###What `tf2_server` affects
+###What tf2_server affects
 
 * Installs a TF2 Dedicated Server into
   a directory you specify. Note that this
   is a large install/download.
 
-###Beginning with `tf2_server`
+###Beginning with tf2_server
 
 To start using `tf2_server`, simply include the
 `tf2_server` class in your manifest, and the module
