@@ -10,6 +10,10 @@
 # Description:       Starts a Team Fortress 2 server
 ### END INIT INFO
 
+<%= if @operatingsystem == 'CentOS'
+      ". /etc/init.d/functions"
+    end %>
+
 NAME="<%= @hostname %>"
 USER="<%= @server_owner %>"
 SCREENREF="tf2"
@@ -32,7 +36,11 @@ running() {
 start() {
   if ! running; then
     echo -n "Starting the $NAME server... "
-    start-stop-daemon --start --chuid $USER --user $USER --chdir $BINARYPATH --exec "/usr/bin/screen" -- -dmS $SCREENREF $BINARYPATH/$BINARYNAME $OPTS
+    <%= if @operatingsystem == 'CentOS'
+          "daemon --user $USER \"/usr/bin/screen\" -dmS $SCREENREF $BINARYPATH/$BINARYNAME $OPTS"
+        else
+          "start-stop-daemon --start --chuid $USER --user $USER --chdir $BINARYPATH --exec \"/usr/bin/screen\" -- -dmS $SCREENREF $BINARYPATH/$BINARYNAME $OPTS"
+        end %>
     pgrep -f $BINARYNAME > $PIDFILE
     if [ -s $PIDFILE ]; then
       echo "Done"

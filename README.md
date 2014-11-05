@@ -76,9 +76,10 @@ parameters. These correspond to values set in your `server.cfg` file.
 This module has been tested and verified on:
 
 * Debian 7
+* CentOS 6
 
 The module may work on other platforms, but functionality cannot be guaranteed.
-As it stands currently, this module will NOT work on CentOS.
+As it stands currently, this module will NOT work on systems that use systemd.
 
 Furthermore, `steamcmd` is a 32-bit program and uses 32-bit libraries, so, as of now,
 this module will only run on 32-bit architectures. 
@@ -102,4 +103,3 @@ These are features I hope to implement sometime in the future.
 * Add a custom `map` type. This type will allow you to ensure a map is present in your map-list,
   and will also allow you to manage the contents of the configuration files for particular maps
   with puppet.
-* Add CentOS support.
