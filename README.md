@@ -97,9 +97,6 @@ this module will only run on 32-bit architectures.
 
 These are features I hope to implement sometime in the future.
 
-* Currently this module only supports four options for your `server.cfg` file. However, this
-  file supports a large number of additional options, so the current implementation is fairly
-  restrictive. Hopefully, support for additional options will be added in the near future.
 * Add support for 64-bit architectures.
 * Add a custom `map` type. This type will allow you to ensure a map is present in your map-list,
   and will also allow you to manage the contents of the configuration files for particular maps
