@@ -1,10 +1,7 @@
 class tf2_server::config inherits tf2_server {
   file { "$server_install_dir/tf2/tf/cfg/server.cfg":
     ensure => file,
-    content => "hostname \"$hostname\"
-                rcon_password \"$rcon_password\"
-                sv_contact \"$sv_contact\"
-                mp_timelimit \"$map_timelimit\"",
+    content => template("tf2_server/server.cfg.erb"),
   }
   file { "$server_install_dir/tf2/tf/cfg/motd.txt":
     ensure => file,

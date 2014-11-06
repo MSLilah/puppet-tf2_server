@@ -6,11 +6,11 @@ class tf2_server::params {
   $service_manage = true
   $service_enable = true
   $hostname = 'tf2_test_server'
-  $rcon_password = 'abcd1234'
-  $sv_contact = 'fakename@fakedomain'
-  $map_timelimit = '30'
   $motd = 'This is a message of the day.'
   $start_map = 'ctf_2fort'
   $maplist = ['ctf_2fort']
   $mapcycle = ['ctf_2fort']
+  $server_options = { rcon_password => 'abcd1234',
+                      sv_contact => 'fakename@fakedomain',
+                      map_timelimit => '30', }
 }

@@ -67,9 +67,10 @@ The `tf2_server` class contains a number of parameters. These include:
 * `mapcycle`: An array containing the maps in your mapcycle in the order they appear in the mapcycle.
   Defaults to `['ctf_2fort']`.
 * `motd`: Your server's message of the day.
-
-This class also has the `hostname`, `rcon_password`, `sv_contact`, and `map_timelimit`
-parameters. These correspond to values set in your `server.cfg` file.
+* `hostname`: The hostname of your server.
+* `server_options`: A hash containing any additional options you want to set in your `server.cfg` file.
+  Each key in this hash should be the name of a setting, with its value being the value of the corresponding
+  setting.
 
 ##Limitations
 
