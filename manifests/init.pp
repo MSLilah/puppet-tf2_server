@@ -3,9 +3,6 @@ class tf2_server (
   $server_owner = $tf2_server::params::server_owner,
   $staging_dir = $tf2_server::params::staging_dir,
   $hostname = $tf2_server::params::hostname,
-  $rcon_password = $tf2_server::params::rcon_password,
-  $sv_contact = $tf2_server::params::sv_contact,
-  $map_timelimit = $tf2_server::params::map_timelimit,
   $motd = $tf2_server::params::motd,
   $service_ensure = $tf2_server::params::service_ensure,
   $service_manage = $tf2_server::params::service_manage,
@@ -13,6 +10,7 @@ class tf2_server (
   $start_map = $tf2_server::params::start_map,
   $maplist = $tf2_server::params::maplist,
   $mapcycle = $tf2_server::params::mapcycle,
+  $server_options = $tf2_server::params::server_options,
 ) inherits tf2_server::params {
   include tf2_server::install
   include tf2_server::config

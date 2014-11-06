@@ -1,0 +1,6 @@
+hostname "<%= @hostname %>"
+<%=  settings = ""
+    @server_options.each do |key, value|
+      settings += "#{key} \"#{value}\"\n"
+    end
+    settings %>
