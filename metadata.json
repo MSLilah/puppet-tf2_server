@@ -2,13 +2,13 @@
   "name": "preben-tf2_server",
   "version": "0.2.0",
   "author": "Preben Ingvaldsen",
-  "license": "Licensed under (Apache 2.0)",
+  "license": "Apache-2.0",
   "summary": "A module to install, configure, and manage a Team Fortress 2 Server",
   "source": "https://github.com/fpringvaldsen/puppet-tf2_server",
   "project_page": "https://github.com/fpringvaldsen/puppet-tf2_server",
   "issues_url": "https://github.com/fpringvaldsen/puppet-tf2_server/issues",
   "tags": ["TF2", "Dedicated Server"],
-  "operating_system_support": [
+  "operatingsystem_support": [
     {
       "operatingsystem":"Debian",
       "operatingsystemrelease":["7.0"]
@@ -19,7 +19,7 @@
     }
   ],
   "dependencies": [
-    { "name": "nanliu/staging", "version_requirement": ">=1.0.2" },
-    { "name": "puppetlabs/stdlib", "version_requirement": ">=3.0.0" }
+    { "name": "nanliu/staging", "version_requirement": ">= 1.0.2" },
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 3.0.0" }
   ]
 }
