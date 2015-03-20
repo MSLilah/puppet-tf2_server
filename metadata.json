@@ -1,6 +1,6 @@
 {
   "name": "preben-tf2_server",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Preben Ingvaldsen",
   "license": "Apache-2.0",
   "summary": "A module to install, configure, and manage a Team Fortress 2 Server",
