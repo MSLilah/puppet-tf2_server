@@ -1,6 +1,6 @@
-#tf2_server
+# tf2_server
 
-####Table of Contents
+#### Table of Contents
 
 1. [Overview](#overview)
 2. [Module Description - What the module does and why it is useful](#module-description)
@@ -12,39 +12,39 @@
 6. [Known issues](#known-issues)
 7. [TODO and Hopes for the Future](#todo-and-hopes-for-the-future)
 
-##Overview
+## Overview
 
 This module allows you to install, configure, and manage a dedicated server
 for Team Fortress 2.
 
-##Module Description
+## Module Description
 
 This module lets you use the `tf2_server` class, which will automatically install
 and manage a TF2 Dedicated Server with its necessary configuration files and allow
 it to be managed as a service.
 
-##Setup
+## Setup
 
-###What tf2_server affects
+### What tf2_server affects
 
 * Installs a TF2 Dedicated Server into
   a directory you specify. Note that this
   is a large install/download.
 
-###Beginning with tf2_server
+### Beginning with tf2_server
 
 To start using `tf2_server`, simply include the
 `tf2_server` class in your manifest, and the module
 will do the rest.
 
-##Reference
+## Reference
 
-###Classes
+### Classes
 
 * `tf2_server`: This class installs, configures, and manages the `tf2_server`
   as a service.
 
-###Parameters
+### Parameters
 
 The `tf2_server` class contains a number of parameters. These include:
 
@@ -72,7 +72,7 @@ The `tf2_server` class contains a number of parameters. These include:
   Each key in this hash should be the name of a setting, with its value being the value of the corresponding
   setting.
 
-##Limitations
+## Limitations
 
 This module has been tested and verified on:
 
@@ -85,7 +85,7 @@ As it stands currently, this module will NOT work on systems that use systemd.
 Furthermore, `steamcmd` is a 32-bit program and uses 32-bit libraries, so, as of now,
 this module will only run on 32-bit architectures. 
 
-##Known Issues
+## Known Issues
 
 * Occasionally, the `steamcmd` tool may be interrupted while installing the TF2 server.
   In this case, the puppet run will fail, as certain necessary directories will not have
@@ -93,7 +93,7 @@ this module will only run on 32-bit architectures.
   continue from where it left off. You may need to apply your manifest multiple times to
   fully install the server. 
 
-##TODO and Hopes for the future
+## TODO and Hopes for the future
 
 These are features I hope to implement sometime in the future.
 
